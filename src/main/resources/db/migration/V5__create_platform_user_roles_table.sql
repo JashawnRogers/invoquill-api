@@ -5,7 +5,7 @@ CREATE TABLE IF NOT EXISTS platform_user_roles (
     granted_by UUID NOT NULL,
 
     CONSTRAINT pk_platform_user_roles
-        PRIMARY KEY (user_id, role_id)
+        PRIMARY KEY (user_id, role_id),
 
     CONSTRAINT fk_platform_user_roles_user_id
         FOREIGN KEY (user_id)
@@ -15,5 +15,10 @@ CREATE TABLE IF NOT EXISTS platform_user_roles (
     CONSTRAINT fk_platform_user_roles_role_id
         FOREIGN KEY (role_id)
         REFERENCES user_roles (id)
+        ON DELETE CASCADE,
+
+    CONSTRAINT fk_platform_user_role_granted_by
+        FOREIGN KEY (granted_by)
+        REFERENCES users (id)
         ON DELETE CASCADE
 );
