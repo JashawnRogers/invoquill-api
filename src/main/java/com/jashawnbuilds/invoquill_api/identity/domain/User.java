@@ -1,6 +1,5 @@
-package com.jashawnbuilds.invoquill_api.users.internal;
+package com.jashawnbuilds.invoquill_api.identity.domain;
 
-import com.jashawnbuilds.invoquill_api.users.UserStatus;
 import jakarta.annotation.Nonnull;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -68,7 +67,7 @@ public class User implements UserDetails {
     }
 
     @Nonnull
-    public static User createUser(
+    public static User create(
             String firstName,
             String lastName,
             String email,
