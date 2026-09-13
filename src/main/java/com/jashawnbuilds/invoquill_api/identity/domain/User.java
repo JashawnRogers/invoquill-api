@@ -1,45 +1,26 @@
 package com.jashawnbuilds.invoquill_api.identity.domain;
 
 import jakarta.annotation.Nonnull;
-import jakarta.persistence.*;
 import lombok.Getter;
-import org.jspecify.annotations.Nullable;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Table;
 
 import java.time.LocalDateTime;
-import java.util.Collection;
-import java.util.List;
 import java.util.UUID;
 
 @Getter
-@Table(name = "users")
-public class User implements UserDetails {
+@Table("users")
+public class User {
+
     @Id
-    @GeneratedValue
     private UUID id;
-
-    @Column(length = 50, nullable = false)
     private String firstName;
-
-    @Column(length = 100, nullable = false)
     private String lastName;
-
-    @Column(nullable = false,unique = true)
     private String email;
-
-    @Column(nullable = false)
     private String passwordHash;
-
-    @Column(length = 30, nullable = false)
-    @Enumerated(EnumType.STRING)
     private UserStatus userStatus;
-
-    @Column(nullable = false)
     private LocalDateTime createdAt;
-
     private LocalDateTime updatedAt;
-
     private LocalDateTime deletedAt;
 
     private User() {}
@@ -116,10 +97,10 @@ public class User implements UserDetails {
 
         String normalizedLastName = lastName.trim();
 
-        if (this.firstName.equals(normalizedLastName)) return;
+        if (this.lastName.equals(normalizedLastName)) return;
 
         this.updatedAt = LocalDateTime.now();
-        this.firstName = normalizedLastName;
+        this.lastName = normalizedLastName;
     }
 
     public void updateEmail(String email) {
@@ -149,7 +130,6 @@ public class User implements UserDetails {
         return this.firstName + " " + this.lastName;
     }
 
-    // deactivate and activate user methods
     public void deactivate() {
         if (this.deletedAt != null) return;
         if (this.userStatus.equals(UserStatus.DEACTIVATED)) return;
@@ -163,47 +143,11 @@ public class User implements UserDetails {
         this.userStatus = UserStatus.ACTIVE;
     }
 
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of();
-    }
-
-    @Override
-    public @Nullable String getPassword() {
-        return "";
-    }
-
-    @Override
-    public String getUsername() {
-        return this.email;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return UserDetails.super.isAccountNonExpired();
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return UserDetails.super.isAccountNonLocked();
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return UserDetails.super.isCredentialsNonExpired();
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return UserDetails.super.isEnabled();
-    }
-
     @Override
     public String toString() {
         return String.format(
-                "User[id=%s, firstName=%s, lastName=%s, email=%s, status=%s, updated=%s]",
-                id, firstName, lastName, email, userStatus, updatedAt.toString()
+                "User[id=%s, firstName=%s, lastName=%s, email=%s, status=%s]",
+                id, firstName, lastName, email, userStatus
         );
     }
 }

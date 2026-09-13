@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS tenants (
-    id UUID PRIMARY KEY,
+    id UUID PRIMARY KEY DEFAULT uuidv7(),
     business_name TEXT NOT NULL,
     company_code VARCHAR(9) UNIQUE NOT NULL,
     tenant_status VARCHAR(30) NOT NULL,

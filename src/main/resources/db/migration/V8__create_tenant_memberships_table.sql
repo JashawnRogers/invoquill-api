@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS tenant_memberships (
-    id UUID PRIMARY KEY,
+    id UUID PRIMARY KEY DEFAULT uuidv7(),
     user_id UUID NOT NULL,
     role_id UUID NOT NULL,
     tenant_id UUID NOT NULL,

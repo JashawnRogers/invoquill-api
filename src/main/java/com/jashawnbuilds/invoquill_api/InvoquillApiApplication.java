@@ -9,5 +9,4 @@ public class InvoquillApiApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(InvoquillApiApplication.class, args);
 	}
-
 }

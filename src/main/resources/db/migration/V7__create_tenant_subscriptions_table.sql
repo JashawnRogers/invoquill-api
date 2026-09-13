@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS tenant_subscriptions (
-    id UUID PRIMARY KEY,
+    id UUID PRIMARY KEY DEFAULT uuidv7(),
     tenant_id UUID UNIQUE NOT NULL,
     plan_code VARCHAR(30) NOT NULL,
     billing_interval VARCHAR(20) NOT NULL,
