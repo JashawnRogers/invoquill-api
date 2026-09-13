@@ -3,7 +3,6 @@ package com.jashawnbuilds.invoquill_api.identity.domain;
 import jakarta.annotation.Nonnull;
 import jakarta.persistence.*;
 import lombok.Getter;
-import lombok.Setter;
 import org.jspecify.annotations.Nullable;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,7 +13,6 @@ import java.util.List;
 import java.util.UUID;
 
 @Getter
-@Setter
 @Table(name = "users")
 public class User implements UserDetails {
     @Id
@@ -100,6 +98,72 @@ public class User implements UserDetails {
         );
     }
 
+    public void updateFirstName(String firstName) {
+        if (this.deletedAt != null)
+            throw new RuntimeException("Account has been deleted and can no longer be updated.");
+
+        String normalizedFirstName = firstName.trim();
+
+        if (this.firstName.equals(normalizedFirstName)) return;
+
+        this.updatedAt = LocalDateTime.now();
+        this.firstName = normalizedFirstName;
+    }
+
+    public void updateLastName(String lastName) {
+        if (this.deletedAt != null)
+            throw new RuntimeException("Account has been deleted and can no longer be updated.");
+
+        String normalizedLastName = lastName.trim();
+
+        if (this.firstName.equals(normalizedLastName)) return;
+
+        this.updatedAt = LocalDateTime.now();
+        this.firstName = normalizedLastName;
+    }
+
+    public void updateEmail(String email) {
+        if (this.deletedAt != null)
+            throw new RuntimeException("Account has been deleted and can no longer be updated.");
+
+        String normalizedEmail = email.trim();
+
+        if (this.email.equals(normalizedEmail)) return;
+
+        this.updatedAt = LocalDateTime.now();
+        this.email = normalizedEmail;
+    }
+
+    public void updatePassword(String passwordHash) {
+        if (this.deletedAt != null)
+            throw new RuntimeException("Account has been deleted and can no longer be updated.");
+
+        if (this.passwordHash.equals(passwordHash)) return;
+
+        this.updatedAt = LocalDateTime.now();
+        this.passwordHash = passwordHash;
+    }
+
+    @Nonnull
+    public String getFullName() {
+        return this.firstName + " " + this.lastName;
+    }
+
+    // deactivate and activate user methods
+    public void deactivate() {
+        if (this.deletedAt != null) return;
+        if (this.userStatus.equals(UserStatus.DEACTIVATED)) return;
+        this.userStatus = UserStatus.DEACTIVATED;
+    }
+
+    public void activate() {
+        if (this.deletedAt != null)
+            throw new RuntimeException("Account has been deleted and can no longer be updated.");
+        if (this.userStatus.equals(UserStatus.ACTIVE)) return;
+        this.userStatus = UserStatus.ACTIVE;
+    }
+
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of();
@@ -112,7 +176,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return "";
+        return this.email;
     }
 
     @Override
