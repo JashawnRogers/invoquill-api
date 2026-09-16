@@ -28,7 +28,7 @@ public class JdbcConfiguration {
                         new EmailAddressReadConverter(),
                         new EmailAddressWriteConverter(),
                         new UsPhoneNumberReadConverter(),
-                        new UsPhoneNumberReadConverter()
+                        new UsPhoneNumberWriteConverter()
                 )
         );
     }
