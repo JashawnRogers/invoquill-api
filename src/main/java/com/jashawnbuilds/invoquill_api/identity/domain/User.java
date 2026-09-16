@@ -1,5 +1,6 @@
 package com.jashawnbuilds.invoquill_api.identity.domain;
 
+import com.jashawnbuilds.invoquill_api.shared.domain.EmailAddress;
 import jakarta.annotation.Nonnull;
 import lombok.Getter;
 import org.springframework.data.annotation.Id;
@@ -16,7 +17,7 @@ public class User {
     private UUID id;
     private String firstName;
     private String lastName;
-    private String email;
+    private EmailAddress email;
     private String passwordHash;
     private UserStatus userStatus;
     private LocalDateTime createdAt;
@@ -28,7 +29,7 @@ public class User {
     private User(
             String firstName,
             String lastName,
-            String email,
+            EmailAddress email,
             String passwordHash,
             UserStatus userStatus,
             LocalDateTime createdAt,
@@ -49,16 +50,13 @@ public class User {
     public static User create(
             String firstName,
             String lastName,
-            String email,
+            EmailAddress email,
             String passwordHash
     ) {
         if (firstName == null || firstName.isBlank())
             throw new RuntimeException("");
 
         if (lastName == null || lastName.isBlank())
-            throw new RuntimeException("");
-
-        if (email == null || email.isBlank())
             throw new RuntimeException("");
 
         if (passwordHash == null || passwordHash.isBlank())
@@ -107,12 +105,8 @@ public class User {
         if (this.deletedAt != null)
             throw new RuntimeException("Account has been deleted and can no longer be updated.");
 
-        String normalizedEmail = email.trim();
-
-        if (this.email.equals(normalizedEmail)) return;
-
+        this.email = EmailAddress.of(email);
         this.updatedAt = LocalDateTime.now();
-        this.email = normalizedEmail;
     }
 
     public void updatePassword(String passwordHash) {
