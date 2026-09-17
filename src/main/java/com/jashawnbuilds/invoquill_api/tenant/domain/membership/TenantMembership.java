@@ -78,7 +78,9 @@ public class TenantMembership {
         );
     }
 
-
+    /**
+     * Intended to be used when needing to reconstruct object with existing state.
+     */
     public TenantMembership restore() {
         return new TenantMembership(
                 this.id,
