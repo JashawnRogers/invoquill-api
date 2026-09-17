@@ -34,6 +34,24 @@ public class TenantMembership {
         this.joinedAt = joinedAt;
     }
 
+    private TenantMembership(
+            UUID id,
+            UUID userId,
+            UUID tenantId,
+            UUID roleId,
+            MembershipStatus membershipStatus,
+            LocalDateTime joinedAt,
+            LocalDateTime updatedAt
+    ) {
+        this.id = id;
+        this.userId = userId;
+        this.tenantId = tenantId;
+        this.roleId = roleId;
+        this.membershipStatus = membershipStatus;
+        this.joinedAt = joinedAt;
+        this.updatedAt = updatedAt;
+    }
+
     public static TenantMembership create(
             UUID userId,
             UUID tenantId,
@@ -57,6 +75,19 @@ public class TenantMembership {
                 roleId,
                 status,
                 joinedAt
+        );
+    }
+
+
+    public TenantMembership restore() {
+        return new TenantMembership(
+                this.id,
+                this.userId,
+                this.tenantId,
+                this.roleId,
+                this.membershipStatus,
+                this.joinedAt,
+                this.updatedAt
         );
     }
 
