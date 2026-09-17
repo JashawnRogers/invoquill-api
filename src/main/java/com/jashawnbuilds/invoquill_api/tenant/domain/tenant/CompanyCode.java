@@ -1,4 +1,4 @@
-package com.jashawnbuilds.invoquill_api.tenant.domain;
+package com.jashawnbuilds.invoquill_api.tenant.domain.tenant;
 
 import java.util.Random;
 

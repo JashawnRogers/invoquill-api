@@ -1,8 +1,8 @@
 package com.jashawnbuilds.invoquill_api.tenant.adapter.out.persistence;
 
-import com.jashawnbuilds.invoquill_api.tenant.domain.BusinessName;
-import com.jashawnbuilds.invoquill_api.tenant.domain.CompanyCode;
-import com.jashawnbuilds.invoquill_api.tenant.domain.Tenant;
+import com.jashawnbuilds.invoquill_api.tenant.domain.tenant.BusinessName;
+import com.jashawnbuilds.invoquill_api.tenant.domain.tenant.CompanyCode;
+import com.jashawnbuilds.invoquill_api.tenant.domain.tenant.Tenant;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.Optional;

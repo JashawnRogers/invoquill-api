@@ -1,4 +1,4 @@
-package com.jashawnbuilds.invoquill_api.tenant.domain;
+package com.jashawnbuilds.invoquill_api.tenant.domain.tenant;
 
 import com.jashawnbuilds.invoquill_api.shared.domain.Address;
 import com.jashawnbuilds.invoquill_api.shared.domain.EmailAddress;

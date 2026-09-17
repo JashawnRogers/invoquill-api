@@ -1,6 +1,6 @@
 package com.jashawnbuilds.invoquill_api.tenant.adapter.out.persistence.converter;
 
-import com.jashawnbuilds.invoquill_api.tenant.domain.CompanyCode;
+import com.jashawnbuilds.invoquill_api.tenant.domain.tenant.CompanyCode;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.data.convert.WritingConverter;
 
