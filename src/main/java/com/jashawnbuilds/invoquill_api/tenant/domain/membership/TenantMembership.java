@@ -63,4 +63,20 @@ public class TenantMembership {
                 roleGrantedAt
         );
     }
+
+    public void changeRole(UUID roleId) {
+        if (roleId == null)
+            throw new RuntimeException("");
+
+        if (this.roleId.equals(roleId)) return;
+
+        if (this.membershipStatus.equals(MembershipStatus.DEACTIVATED))
+            throw new RuntimeException();
+
+        if (this.membershipStatus.equals(MembershipStatus.SUSPENDED))
+            throw new RuntimeException();
+
+        this.roleId = roleId;
+        this.roleGrantedAt = LocalDateTime.now();
+    }
 }
