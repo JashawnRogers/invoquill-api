@@ -7,6 +7,9 @@ CREATE TABLE IF NOT EXISTS tenant_memberships (
     joined_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     role_granted_at TIMESTAMPTZ,
 
+    CONSTRAINT one_membership_per_tenant_and_user
+    UNIQUE (tenant_id, user_id),
+
     CONSTRAINT fk_tenant_membership_user_id
         FOREIGN KEY (user_id)
         REFERENCES users (id),
