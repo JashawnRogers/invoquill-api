@@ -18,22 +18,20 @@ public class TenantMembership {
     private UUID roleId;
     private MembershipStatus membershipStatus;
     private final LocalDateTime joinedAt;
-    private LocalDateTime roleGrantedAt;
+    private LocalDateTime updatedAt;
 
     private TenantMembership(
             UUID userId,
             UUID tenantId,
             UUID roleId,
             MembershipStatus membershipStatus,
-            LocalDateTime joinedAt,
-            LocalDateTime roleGrantedAt
+            LocalDateTime joinedAt
     ) {
         this.userId = userId;
         this.tenantId = tenantId;
         this.roleId = roleId;
         this.membershipStatus = membershipStatus;
         this.joinedAt = joinedAt;
-        this.roleGrantedAt = roleGrantedAt;
     }
 
     public static TenantMembership create(
@@ -52,15 +50,13 @@ public class TenantMembership {
 
         MembershipStatus status = MembershipStatus.ACTIVE;
         LocalDateTime joinedAt = LocalDateTime.now();
-        LocalDateTime roleGrantedAt = LocalDateTime.now();
 
         return new TenantMembership(
                 userId,
                 tenantId,
                 roleId,
                 status,
-                joinedAt,
-                roleGrantedAt
+                joinedAt
         );
     }
 
@@ -77,6 +73,19 @@ public class TenantMembership {
             throw new RuntimeException();
 
         this.roleId = roleId;
-        this.roleGrantedAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
+    }
+
+    /**
+     * Intended to temporarily suspend access to tenant.
+     */
+    public void suspend() {
+        if (this.membershipStatus.equals(MembershipStatus.DEACTIVATED))
+            throw new RuntimeException();
+
+        if (this.membershipStatus.equals(MembershipStatus.SUSPENDED)) return;
+
+        this.membershipStatus = MembershipStatus.SUSPENDED;
+        this.updatedAt = LocalDateTime.now();
     }
 }

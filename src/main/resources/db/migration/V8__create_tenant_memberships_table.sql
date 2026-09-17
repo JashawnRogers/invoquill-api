@@ -1,11 +1,11 @@
 CREATE TABLE IF NOT EXISTS tenant_memberships (
     id UUID PRIMARY KEY DEFAULT uuidv7(),
     user_id UUID NOT NULL,
-    role_id UUID NOT NULL,
+    role_id UUID,
     tenant_id UUID NOT NULL,
     membership_status VARCHAR(30) NOT NULL,
     joined_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-    role_granted_at TIMESTAMPTZ,
+    updated_at TIMESTAMPTZ,
 
     CONSTRAINT one_membership_per_tenant_and_user
     UNIQUE (tenant_id, user_id),
