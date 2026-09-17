@@ -88,4 +88,14 @@ public class TenantMembership {
         this.membershipStatus = MembershipStatus.SUSPENDED;
         this.updatedAt = LocalDateTime.now();
     }
+
+    public void reactivate() {
+        if (this.membershipStatus.equals(MembershipStatus.DEACTIVATED))
+            throw new RuntimeException();
+
+        if (this.membershipStatus.equals(MembershipStatus.ACTIVE)) return;
+
+        this.membershipStatus = MembershipStatus.ACTIVE;
+        this.updatedAt = LocalDateTime.now();
+    }
 }
