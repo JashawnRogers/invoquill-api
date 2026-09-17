@@ -98,4 +98,14 @@ public class TenantMembership {
         this.membershipStatus = MembershipStatus.ACTIVE;
         this.updatedAt = LocalDateTime.now();
     }
+
+    /**
+     * Permanently revokes user's access to respective tenant. This cannot be undone.
+     */
+    public void deactivate() {
+        if (this.membershipStatus.equals(MembershipStatus.DEACTIVATED)) return;
+
+        this.membershipStatus = MembershipStatus.DEACTIVATED;
+        this.updatedAt = LocalDateTime.now();
+    }
 }
