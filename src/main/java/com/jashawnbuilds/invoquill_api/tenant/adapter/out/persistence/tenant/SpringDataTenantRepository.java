@@ -1,4 +1,4 @@
-package com.jashawnbuilds.invoquill_api.tenant.adapter.out.persistence;
+package com.jashawnbuilds.invoquill_api.tenant.adapter.out.persistence.tenant;
 
 import com.jashawnbuilds.invoquill_api.tenant.domain.tenant.BusinessName;
 import com.jashawnbuilds.invoquill_api.tenant.domain.tenant.CompanyCode;

@@ -4,10 +4,10 @@ import com.jashawnbuilds.invoquill_api.shared.adapter.out.persistence.converter.
 import com.jashawnbuilds.invoquill_api.shared.adapter.out.persistence.converter.EmailAddressWriteConverter;
 import com.jashawnbuilds.invoquill_api.shared.adapter.out.persistence.converter.UsPhoneNumberReadConverter;
 import com.jashawnbuilds.invoquill_api.shared.adapter.out.persistence.converter.UsPhoneNumberWriteConverter;
-import com.jashawnbuilds.invoquill_api.tenant.adapter.out.persistence.converter.BusinessNameReadConverter;
-import com.jashawnbuilds.invoquill_api.tenant.adapter.out.persistence.converter.BusinessNameWriteConverter;
-import com.jashawnbuilds.invoquill_api.tenant.adapter.out.persistence.converter.CompanyCodeReadConverter;
-import com.jashawnbuilds.invoquill_api.tenant.adapter.out.persistence.converter.CompanyCodeWriteConverter;
+import com.jashawnbuilds.invoquill_api.tenant.adapter.out.persistence.tenant.converter.BusinessNameReadConverter;
+import com.jashawnbuilds.invoquill_api.tenant.adapter.out.persistence.tenant.converter.BusinessNameWriteConverter;
+import com.jashawnbuilds.invoquill_api.tenant.adapter.out.persistence.tenant.converter.CompanyCodeReadConverter;
+import com.jashawnbuilds.invoquill_api.tenant.adapter.out.persistence.tenant.converter.CompanyCodeWriteConverter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jdbc.core.convert.JdbcCustomConversions;

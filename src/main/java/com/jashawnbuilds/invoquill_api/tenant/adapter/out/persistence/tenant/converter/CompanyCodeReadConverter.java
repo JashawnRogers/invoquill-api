@@ -1,4 +1,4 @@
-package com.jashawnbuilds.invoquill_api.tenant.adapter.out.persistence.converter;
+package com.jashawnbuilds.invoquill_api.tenant.adapter.out.persistence.tenant.converter;
 
 import com.jashawnbuilds.invoquill_api.tenant.domain.tenant.CompanyCode;
 import org.springframework.core.convert.converter.Converter;
