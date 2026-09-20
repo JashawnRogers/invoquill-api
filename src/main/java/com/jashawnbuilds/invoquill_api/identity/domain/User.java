@@ -1,6 +1,7 @@
 package com.jashawnbuilds.invoquill_api.identity.domain;
 
 import com.jashawnbuilds.invoquill_api.shared.domain.EmailAddress;
+import com.jashawnbuilds.invoquill_api.shared.domain.exception.InvalidDomainValueException;
 import jakarta.annotation.Nonnull;
 import lombok.Getter;
 import org.springframework.data.annotation.Id;
@@ -54,13 +55,22 @@ public class User {
             String passwordHash
     ) {
         if (firstName == null || firstName.isBlank())
-            throw new RuntimeException("");
+            throw new InvalidDomainValueException(
+                    "INVALID_FIRST_NAME",
+                    "First name cannot be empty."
+                    );
 
         if (lastName == null || lastName.isBlank())
-            throw new RuntimeException("");
+            throw new InvalidDomainValueException(
+                    "INVALID_LAST_NAME",
+                    "Last name cannot be empty."
+                    );
 
         if (passwordHash == null || passwordHash.isBlank())
-            throw new RuntimeException("");
+            throw new InvalidDomainValueException(
+                    "INVALID_PASSWORD",
+                    "Password cannot be empty"
+            );
 
         LocalDateTime createdAt = LocalDateTime.now();
         UserStatus status = UserStatus.ACTIVE;
