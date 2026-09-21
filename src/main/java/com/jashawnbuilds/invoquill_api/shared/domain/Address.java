@@ -1,5 +1,7 @@
 package com.jashawnbuilds.invoquill_api.shared.domain;
 
+import com.jashawnbuilds.invoquill_api.shared.domain.exception.InvalidDomainValueException;
+
 public record Address(
         String streetLine1,
         String streetLine2,
@@ -10,16 +12,28 @@ public record Address(
 ) {
     public Address {
         if (streetLine1 == null || streetLine1.isBlank())
-            throw new RuntimeException();
+            throw new InvalidDomainValueException(
+                    "INVALID_STREET_LINE",
+                    "Street line 1 cannot be empty."
+            );
 
         if (city == null || city.isBlank())
-            throw new RuntimeException();
+            throw new InvalidDomainValueException(
+                    "INVALID_CITY",
+                    "City cannot be empty."
+            );
 
         if (postalCode == null || postalCode.isBlank())
-            throw new RuntimeException();
+            throw new InvalidDomainValueException(
+                    "INVALID_POSTAL_CODE",
+                    "Postal code cannot be empty."
+            );
 
         if (country == null || country.isBlank())
-            throw new RuntimeException();
+            throw new InvalidDomainValueException(
+                    "INVALID_COUNTRY",
+                    "Country cannot be empty."
+            );
     }
 
     public String toFormattedMultiLineAddress() {

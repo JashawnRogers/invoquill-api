@@ -1,5 +1,7 @@
 package com.jashawnbuilds.invoquill_api.shared.domain;
 
+import com.jashawnbuilds.invoquill_api.shared.domain.exception.InvalidDomainValueException;
+
 import java.util.regex.Pattern;
 
 public record EmailAddress(String value) {
@@ -10,7 +12,10 @@ public record EmailAddress(String value) {
 
     public EmailAddress {
         if (value == null || value.isBlank())
-            throw new RuntimeException();
+            throw new InvalidDomainValueException(
+                    "INVALID_EMAIL",
+                    "Email cannot be empty."
+            );
 
         value = value.toLowerCase().strip();
 

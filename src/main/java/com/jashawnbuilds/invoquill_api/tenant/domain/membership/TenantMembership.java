@@ -1,5 +1,6 @@
 package com.jashawnbuilds.invoquill_api.tenant.domain.membership;
 
+import com.jashawnbuilds.invoquill_api.shared.domain.exception.InvalidDomainValueException;
 import lombok.Getter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
@@ -58,13 +59,22 @@ public class TenantMembership {
             UUID roleId
     ) {
         if (userId == null)
-            throw new RuntimeException("");
+            throw new InvalidDomainValueException(
+                    "INVALID_USER_ID",
+                    "User ID cannot be empty."
+            );
 
         if (tenantId == null)
-            throw new RuntimeException("");
+            throw new InvalidDomainValueException(
+                    "INVALID_TENANT_ID",
+                    "Tenant ID cannot be empty."
+            );
 
         if (roleId == null)
-            throw new RuntimeException("");
+            throw new InvalidDomainValueException(
+                    "INVALID_ROLE_ID",
+                    "Role ID cannot be empty."
+            );
 
         MembershipStatus status = MembershipStatus.ACTIVE;
         LocalDateTime joinedAt = LocalDateTime.now();

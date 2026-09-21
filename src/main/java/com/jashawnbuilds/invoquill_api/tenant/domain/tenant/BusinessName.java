@@ -1,10 +1,15 @@
 package com.jashawnbuilds.invoquill_api.tenant.domain.tenant;
 
+import com.jashawnbuilds.invoquill_api.shared.domain.exception.InvalidDomainValueException;
+
 public record BusinessName(String value) {
 
     public BusinessName {
         if (value == null || value.isBlank())
-            throw new RuntimeException();
+            throw new InvalidDomainValueException(
+                    "INVALID_BUSINESS_NAME",
+                    "Business name cannot be empty."
+            );
 
         value = value.strip();
 

@@ -1,6 +1,8 @@
 package com.jashawnbuilds.invoquill_api.shared.domain.exception;
 
 import lombok.Getter;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 
 /**
@@ -8,6 +10,7 @@ import lombok.Getter;
  * null or blank checks when creating domain objects.
  */
 @Getter
+@ResponseStatus(HttpStatus.BAD_REQUEST)
 public class InvalidDomainValueException extends RuntimeException {
 
     private final String code;

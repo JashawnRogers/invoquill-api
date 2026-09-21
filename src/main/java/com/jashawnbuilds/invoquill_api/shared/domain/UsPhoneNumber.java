@@ -1,5 +1,7 @@
 package com.jashawnbuilds.invoquill_api.shared.domain;
 
+import com.jashawnbuilds.invoquill_api.shared.domain.exception.InvalidDomainValueException;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -19,16 +21,28 @@ public record UsPhoneNumber(
 
     public UsPhoneNumber {
         if (areaCode == null || areaCode.isBlank())
-            throw new RuntimeException();
+            throw new InvalidDomainValueException(
+                    "INVALID_AREA_CODE",
+                    "Area code cannot be empty."
+            );
 
         if (centralOfficeCode == null || centralOfficeCode.isBlank())
-            throw new RuntimeException();
+            throw new InvalidDomainValueException(
+                    "INVALID_CENTRAL_OFFICE_CODE",
+                    "Central office code (middle 3 digits) cannot be empty."
+            );
 
         if (lineNumber == null || lineNumber.isBlank())
-            throw new RuntimeException();
+            throw new InvalidDomainValueException(
+                    "INVALID_LINE_NUMBER",
+                    "Line number (last 4 digits) cannot be empty."
+            );
 
         if (areaCode.length() != 3 || centralOfficeCode.length() != 3 || lineNumber.length() != 4)
-            throw new RuntimeException();
+            throw new InvalidDomainValueException(
+                    "INVALID_PHONE_NUMBER",
+                    "Invalid phone number. Please check format."
+            );
     }
 
     /**
@@ -37,7 +51,10 @@ public record UsPhoneNumber(
      */
     public static UsPhoneNumber of(String rawInput) {
         if (rawInput == null || rawInput.isBlank())
-            throw new RuntimeException();
+            throw new InvalidDomainValueException(
+                    "INVALID_PHONE_NUMBER",
+                    "Phone number cannot be empty."
+            );
 
         // Lowercase and strip common formatting characters but preserve extension indicators (x, ext)
         String sanitizedInput = rawInput.toLowerCase().replaceAll("[\\s()\\-.]", "");

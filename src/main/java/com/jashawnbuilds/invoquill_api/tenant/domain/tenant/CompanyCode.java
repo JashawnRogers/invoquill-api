@@ -1,5 +1,7 @@
 package com.jashawnbuilds.invoquill_api.tenant.domain.tenant;
 
+import com.jashawnbuilds.invoquill_api.shared.domain.exception.InvalidDomainValueException;
+
 import java.util.Random;
 
 public record CompanyCode(String value) {
@@ -8,7 +10,10 @@ public record CompanyCode(String value) {
 
     public CompanyCode {
         if (value == null || value.isBlank())
-            throw new RuntimeException();
+            throw new InvalidDomainValueException(
+                    "INVALID_COMPANY_CODE",
+                    "Company code cannot be empty."
+            );
     }
 
 
