@@ -105,15 +105,24 @@ public class TenantMembership {
 
     public void changeRole(UUID roleId) {
         if (roleId == null)
-            throw new RuntimeException("");
+            throw new InvalidDomainValueException(
+                    "INVALID_ROLE_ID",
+                    "Role ID cannot be empty."
+            );
 
         if (this.roleId.equals(roleId)) return;
 
         if (this.membershipStatus.equals(MembershipStatus.DEACTIVATED))
-            throw new RuntimeException();
+            throw new InvalidMembershipStatusException(
+                    "INVALID_MEMBERSHIP_STATUS",
+                    "Membership has been deactivated and can no longer be updated."
+            );
 
         if (this.membershipStatus.equals(MembershipStatus.SUSPENDED))
-            throw new RuntimeException();
+            throw new InvalidMembershipStatusException(
+                    "INVALID_MEMBERSHIP_STATUS",
+                    "Membership status is suspended. Activate status to make updates."
+            );
 
         this.roleId = roleId;
         this.updatedAt = LocalDateTime.now();
@@ -124,7 +133,10 @@ public class TenantMembership {
      */
     public void suspend() {
         if (this.membershipStatus.equals(MembershipStatus.DEACTIVATED))
-            throw new RuntimeException();
+            throw new InvalidMembershipStatusException(
+                    "INVALID_MEMBERSHIP_STATUS",
+                    "Membership has been deactivated and can no longer be updated."
+            );
 
         if (this.membershipStatus.equals(MembershipStatus.SUSPENDED)) return;
 
@@ -134,7 +146,10 @@ public class TenantMembership {
 
     public void reactivate() {
         if (this.membershipStatus.equals(MembershipStatus.DEACTIVATED))
-            throw new RuntimeException();
+            throw new InvalidMembershipStatusException(
+                    "INVALID_MEMBERSHIP_STATUS",
+                    "Membership has been deactivated and can no longer be updated."
+            );
 
         if (this.membershipStatus.equals(MembershipStatus.ACTIVE)) return;
 
