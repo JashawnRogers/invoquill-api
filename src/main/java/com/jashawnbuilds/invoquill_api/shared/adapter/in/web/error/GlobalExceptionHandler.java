@@ -1,6 +1,6 @@
 package com.jashawnbuilds.invoquill_api.shared.adapter.in.web.error;
 
-import com.jashawnbuilds.invoquill_api.identity.domain.DeletedAccountException;
+import com.jashawnbuilds.invoquill_api.shared.domain.exception.DeletedEntityException;
 import com.jashawnbuilds.invoquill_api.shared.domain.exception.InvalidDomainValueException;
 import com.jashawnbuilds.invoquill_api.tenant.domain.membership.InvalidMembershipStatusException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -30,9 +30,9 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(httpStatus).body(apiErrorResponse);
     }
 
-    @ExceptionHandler(DeletedAccountException.class)
-    public ResponseEntity<ApiErrorResponse> handleDeletedAccountException(
-            DeletedAccountException ex,
+    @ExceptionHandler(DeletedEntityException.class)
+    public ResponseEntity<ApiErrorResponse> handleDeletedEntityException(
+            DeletedEntityException ex,
             HttpServletRequest httpRequest
     ) {
         HttpStatus status = HttpStatus.CONFLICT;

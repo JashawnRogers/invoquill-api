@@ -1,6 +1,7 @@
 package com.jashawnbuilds.invoquill_api.identity.domain;
 
 import com.jashawnbuilds.invoquill_api.shared.domain.EmailAddress;
+import com.jashawnbuilds.invoquill_api.shared.domain.exception.DeletedEntityException;
 import com.jashawnbuilds.invoquill_api.shared.domain.exception.InvalidDomainValueException;
 import jakarta.annotation.Nonnull;
 import lombok.Getter;
@@ -89,7 +90,7 @@ public class User {
 
     public void updateFirstName(String firstName) {
         if (this.deletedAt != null)
-            throw new DeletedAccountException(
+            throw new DeletedEntityException(
                     "INVALID_ACCOUNT_STATE",
                     "Account has been deleted and can no longer be updated."
             );
@@ -104,7 +105,7 @@ public class User {
 
     public void updateLastName(String lastName) {
         if (this.deletedAt != null)
-            throw new DeletedAccountException(
+            throw new DeletedEntityException(
                     "INVALID_ACCOUNT_STATE",
                     "Account has been deleted and can no longer be updated."
             );
@@ -119,7 +120,7 @@ public class User {
 
     public void updateEmail(String email) {
         if (this.deletedAt != null)
-            throw new DeletedAccountException(
+            throw new DeletedEntityException(
                     "INVALID_ACCOUNT_STATE",
                     "Account has been deleted and can no longer be updated."
             );
@@ -130,7 +131,7 @@ public class User {
 
     public void updatePassword(String passwordHash) {
         if (this.deletedAt != null)
-            throw new DeletedAccountException(
+            throw new DeletedEntityException(
                     "INVALID_ACCOUNT_STATE",
                     "Account has been deleted and can no longer be updated."
             );
@@ -154,7 +155,7 @@ public class User {
 
     public void activate() {
         if (this.deletedAt != null)
-            throw new DeletedAccountException(
+            throw new DeletedEntityException(
                     "INVALID_ACCOUNT_STATE",
                     "Account has been deleted and can no longer be updated."
             );

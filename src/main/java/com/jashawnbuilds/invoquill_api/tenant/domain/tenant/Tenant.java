@@ -3,6 +3,8 @@ package com.jashawnbuilds.invoquill_api.tenant.domain.tenant;
 import com.jashawnbuilds.invoquill_api.shared.domain.Address;
 import com.jashawnbuilds.invoquill_api.shared.domain.EmailAddress;
 import com.jashawnbuilds.invoquill_api.shared.domain.UsPhoneNumber;
+import com.jashawnbuilds.invoquill_api.shared.domain.exception.DeletedEntityException;
+import com.jashawnbuilds.invoquill_api.shared.domain.exception.InvalidDomainValueException;
 import lombok.Getter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Embedded;
@@ -78,10 +80,16 @@ public class Tenant {
 
     public void updateBusinessName(BusinessName name) {
         if (!this.tenantStatus.equals(TenantStatus.ACTIVE))
-            throw new RuntimeException();
+            throw new InvalidTenantStatusException(
+                    "INVALID_TENANT_STATUS",
+                    "Tenant status must be active to make updates."
+            );
 
         if (this.deletedAt != null)
-            throw new RuntimeException();
+            throw new DeletedEntityException(
+                    "INVALID_TENANT_STATE",
+                    "Tenant has been deleted and can no longer be updated."
+            );
 
         this.businessName = name;
         this.companyCode = CompanyCode.generateFrom(name);
@@ -90,10 +98,16 @@ public class Tenant {
 
     public void updateEmail(EmailAddress email) {
         if (!this.tenantStatus.equals(TenantStatus.ACTIVE))
-            throw new RuntimeException();
+            throw new InvalidTenantStatusException(
+                    "INVALID_TENANT_STATUS",
+                    "Tenant status must be active to make updates."
+            );
 
         if (this.deletedAt != null)
-            throw new RuntimeException();
+            throw new DeletedEntityException(
+                    "INVALID_TENANT_STATE",
+                    "Tenant has been deleted and can no longer be updated."
+            );
 
         this.businessEmail = email;
         this.updatedAt = LocalDateTime.now();
@@ -101,10 +115,16 @@ public class Tenant {
 
     public void updatePhoneNumber(UsPhoneNumber phoneNumber) {
         if (!this.tenantStatus.equals(TenantStatus.ACTIVE))
-            throw new RuntimeException();
+            throw new InvalidTenantStatusException(
+                    "INVALID_TENANT_STATUS",
+                    "Tenant status must be active to make updates."
+            );
 
         if (this.deletedAt != null)
-            throw new RuntimeException();
+            throw new DeletedEntityException(
+                    "INVALID_TENANT_STATE",
+                    "Tenant has been deleted and can no longer be updated."
+            );
 
         this.businessPhoneNumber = phoneNumber;
         this.updatedAt = LocalDateTime.now();
@@ -112,10 +132,16 @@ public class Tenant {
 
     public void updateAddress(Address address) {
         if (!this.tenantStatus.equals(TenantStatus.ACTIVE))
-            throw new RuntimeException();
+            throw new InvalidTenantStatusException(
+                    "INVALID_TENANT_STATUS",
+                    "Tenant status must be active to make updates."
+            );
 
         if (this.deletedAt != null)
-            throw new RuntimeException();
+            throw new DeletedEntityException(
+                    "INVALID_TENANT_STATE",
+                    "Tenant has been deleted and can no longer be updated."
+            );
 
         this.businessAddress = address;
         this.updatedAt = LocalDateTime.now();
@@ -123,10 +149,22 @@ public class Tenant {
 
     public void updateTaxIdNumber(String taxIdentificationNumber) {
         if (!this.tenantStatus.equals(TenantStatus.ACTIVE))
-            throw new RuntimeException();
+            throw new InvalidTenantStatusException(
+                    "INVALID_TENANT_STATUS",
+                    "Tenant status must be active to make updates."
+            );
+
+        if (taxIdentificationNumber == null || taxIdentificationNumber.isBlank())
+            throw new InvalidDomainValueException(
+                    "INVALID_TAX_ID_NUMBER",
+                    "Tax ID number cannot be empty."
+            );
 
         if (this.deletedAt != null)
-            throw new RuntimeException();
+            throw new DeletedEntityException(
+                    "INVALID_TENANT_STATE",
+                    "Tenant has been deleted and can no longer be updated."
+            );
 
         if (this.taxIdentificationNumber != null) {
             if (this.taxIdentificationNumber.equals(taxIdentificationNumber))
@@ -141,7 +179,10 @@ public class Tenant {
         if (this.tenantStatus.equals(TenantStatus.ACTIVE)) return;
 
         if (this.deletedAt != null)
-            throw new RuntimeException();
+            throw new DeletedEntityException(
+                    "INVALID_TENANT_STATE",
+                    "Tenant has been deleted and can no longer be updated."
+            );
 
         this.tenantStatus = TenantStatus.ACTIVE;
         this.updatedAt = LocalDateTime.now();
