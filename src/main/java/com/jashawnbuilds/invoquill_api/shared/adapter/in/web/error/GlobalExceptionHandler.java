@@ -3,6 +3,7 @@ package com.jashawnbuilds.invoquill_api.shared.adapter.in.web.error;
 import com.jashawnbuilds.invoquill_api.shared.domain.exception.DeletedEntityException;
 import com.jashawnbuilds.invoquill_api.shared.domain.exception.InvalidDomainValueException;
 import com.jashawnbuilds.invoquill_api.tenant.domain.membership.InvalidMembershipStatusException;
+import com.jashawnbuilds.invoquill_api.tenant.domain.tenant.InvalidTenantStatusException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -48,7 +49,7 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(status).body(apiErrorResponse);
     }
 
-    @ExceptionHandler(InvalidMembershipStatusException.class)
+    @ExceptionHandler({InvalidMembershipStatusException.class, InvalidTenantStatusException.class})
     public ResponseEntity<ApiErrorResponse> handleInvalidMembershipStatusException(
             InvalidMembershipStatusException ex,
             HttpServletRequest httpRequest
