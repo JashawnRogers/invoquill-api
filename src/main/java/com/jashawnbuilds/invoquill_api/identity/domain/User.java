@@ -89,7 +89,10 @@ public class User {
 
     public void updateFirstName(String firstName) {
         if (this.deletedAt != null)
-            throw new RuntimeException("Account has been deleted and can no longer be updated.");
+            throw new DeletedAccountException(
+                    "INVALID_ACCOUNT_STATE",
+                    "Account has been deleted and can no longer be updated."
+            );
 
         String normalizedFirstName = firstName.trim();
 
@@ -101,7 +104,10 @@ public class User {
 
     public void updateLastName(String lastName) {
         if (this.deletedAt != null)
-            throw new RuntimeException("Account has been deleted and can no longer be updated.");
+            throw new DeletedAccountException(
+                    "INVALID_ACCOUNT_STATE",
+                    "Account has been deleted and can no longer be updated."
+            );
 
         String normalizedLastName = lastName.trim();
 
@@ -113,7 +119,10 @@ public class User {
 
     public void updateEmail(String email) {
         if (this.deletedAt != null)
-            throw new RuntimeException("Account has been deleted and can no longer be updated.");
+            throw new DeletedAccountException(
+                    "INVALID_ACCOUNT_STATE",
+                    "Account has been deleted and can no longer be updated."
+            );
 
         this.email = EmailAddress.of(email);
         this.updatedAt = LocalDateTime.now();
@@ -121,7 +130,10 @@ public class User {
 
     public void updatePassword(String passwordHash) {
         if (this.deletedAt != null)
-            throw new RuntimeException("Account has been deleted and can no longer be updated.");
+            throw new DeletedAccountException(
+                    "INVALID_ACCOUNT_STATE",
+                    "Account has been deleted and can no longer be updated."
+            );
 
         if (this.passwordHash.equals(passwordHash)) return;
 
@@ -142,7 +154,11 @@ public class User {
 
     public void activate() {
         if (this.deletedAt != null)
-            throw new RuntimeException("Account has been deleted and can no longer be updated.");
+            throw new DeletedAccountException(
+                    "INVALID_ACCOUNT_STATE",
+                    "Account has been deleted and can no longer be updated."
+            );
+
         if (this.userStatus.equals(UserStatus.ACTIVE)) return;
         this.userStatus = UserStatus.ACTIVE;
     }
